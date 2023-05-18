@@ -3,7 +3,7 @@ const request = require('request');
 export default function handler(req, res) {
   const { url } = req.query;
   if (!url) {
-    res.send('403');
+    return res.send('403');
   }
 
   request.get(decodeURIComponent(url))
