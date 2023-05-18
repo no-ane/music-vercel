@@ -1,5 +1,5 @@
 import request from 'request';
 
 export default function handler(req, res) {
-  res.send(req.originalUrl);
+  res.send(JSON.stringify(req));
 }
