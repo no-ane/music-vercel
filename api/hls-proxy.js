@@ -9,8 +9,7 @@ export default async function handler(req, res) {
 	      console.log('err', err);
       	res.send(err);
       } else {
-	      // res.write(requestResult.body, 'binary');
-	      res.end(requestResult.body);
+	      res.send(requestResult.body);
       }
     })
     .on('response', function(response) {
