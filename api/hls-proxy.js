@@ -1,5 +1,4 @@
 import request from 'request';
-import qs from 'qs';
 
 const allowCors = fn => async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true)
