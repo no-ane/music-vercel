@@ -3,7 +3,7 @@ import request from 'request';
 export default async function handler(req, res) {
   const imageUrl = 'https://kuizuo.cn/img/logo.webp'; // 在线图片的 URL，根据实际情况修改
 
-  const url = decodeURIComponent(req.url.slice(19));
+  const url = req.url.slice(19);
   const ret = {};
 
   request.get(url, (err, requestResult) => {
