@@ -27,15 +27,15 @@ async function handler(req, res) {
 	const url2 = `${url.split('fn=')[0]}fn=${encodeFnName}${url.split('fn=')[1].split('&').slice(1).join('&')}`
 
 
-	const { url, ...rest } = req.query;
+	let { url: queryUrl, ...rest } = req.query;
 
-	url += `${req.url.split('url=')[0]}${req.url.split('url=')[1].slice(encodeURI(url).length)}`
+	queryUrl += `${req.url.split('url=')[0]}${req.url.split('url=')[1].slice(encodeURI(url).length)}`
 
 	res.send({
 		url: req.url,
 		url2,
 		query: req.query,
-		formatUrl: url
+		formatUrl: queryUrl
 	});
   // const ret = {};
 
