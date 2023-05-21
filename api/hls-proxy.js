@@ -31,42 +31,35 @@ async function handler(req, res) {
 
 	queryUrl += `&${url.split('url=')[0]}ts_size${url.split('%3Fts_size')[1]}`
 
-	res.send({
-		url: url,
-		reqUrl: req.url,
-		url2,
-		query: req.query,
-		formatUrl: queryUrl
-	});
-  // const ret = {};
+  const ret = {};
 
-  // request.get(url2, (err, requestResult) => {
-  //     if (err) {
-  //       console.log('err', err);
-  //       res.send(err);
-  //     } else {
-  //       // res.send(requestResult.body);
-  //       res.send(Buffer.from(requestResult.body, 'binary'));
-  //     }
-  //   })
-  //   .on('response', function(response) {
-  //     // 设置响应头
-  //     if (response.headers['content-type']) {
-  //     	ret['content-type'] = response.headers['content-type'];
-  //     	res.setHeader('Content-Type', response.headers['content-type']);
-  //     }
+  request.get(queryUrl, (err, requestResult) => {
+      if (err) {
+        console.log('err', err);
+        res.send(err);
+      } else {
+        // res.send(requestResult.body);
+        res.send(Buffer.from(requestResult.body, 'binary'));
+      }
+    })
+    .on('response', function(response) {
+      // 设置响应头
+      if (response.headers['content-type']) {
+      	ret['content-type'] = response.headers['content-type'];
+      	res.setHeader('Content-Type', response.headers['content-type']);
+      }
 
-  //     if (response.headers['content-length']) {
-  //     	ret['content-length'] = response.headers['content-length'];
-  //     	res.setHeader('Content-Length', response.headers['content-length']);
-  //     }
+      if (response.headers['content-length']) {
+      	ret['content-length'] = response.headers['content-length'];
+      	res.setHeader('Content-Length', response.headers['content-length']);
+      }
 
-  //     if (response.headers['content-disposition']) {
-  //     	ret['content-disposition'] = response.headers['content-disposition'];
-  //     	res.setHeader('Content-Disposition', response.headers['content-disposition']);
-  //     }
+      if (response.headers['content-disposition']) {
+      	ret['content-disposition'] = response.headers['content-disposition'];
+      	res.setHeader('Content-Disposition', response.headers['content-disposition']);
+      }
 
-  //   })
+    })
 }
 
 export default allowCors(handler)
