@@ -14,8 +14,8 @@ export default async function handler(req, res) {
     })
     .on('response', function(response) {
       // 设置响应头
-      res.set('Content-Type', response.headers['content-type']);
-      res.set('Content-Length', response.headers['content-length']);
-      res.set('Content-Disposition', response.headers['content-disposition']);
+      res.setHeader('Content-Type', response.headers['content-type']);
+      res.setHeader('Content-Length', response.headers['content-length']);
+      res.setHeader('Content-Disposition', response.headers['content-disposition']);
     })
 }
