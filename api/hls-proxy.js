@@ -1,14 +1,29 @@
 import request from 'request';
+import http from 'http';
 
 export default async function handler(req, res) {
+  const imageUrl = 'https://kuizuo.cn/img/logo.webp'; // 在线图片的 URL，根据实际情况修改
 
-  const imageData = Buffer.from('FF0000', 'hex'); // 红色 RGB 值为 FF0000
-  res.writeHead(200, {
-    'Content-Type': 'image/jpeg',
-    'Content-Length': imageData.length
+  http.get(imageUrl, (response) => {
+    if (response.statusCode !== 200) {
+      console.error(`Failed to fetch image. Status code: ${response.statusCode}`);
+      res.status(500).end();
+      return;
+    }
+
+    const chunks = [];
+    response.on('data', (chunk) => chunks.push(chunk));
+    response.on('end', () => {
+      const imageData = Buffer.concat(chunks);
+      res.setHeader('Content-Type', 'image/jpeg');
+      res.send(imageData);
+    });
+  }).on('error', (error) => {
+    console.error(`Error fetching image: ${error.message}`);
+    res.status(500).end();
   });
-  res.end(imageData);
-  
+
+
   // const url = decodeURIComponent(req.url.slice(19));
   // const ret = {};
 
