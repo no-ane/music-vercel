@@ -10,6 +10,7 @@ export default async function handler(req, res) {
       	res.send(err);
       } else {
 	      res.write(requestResult.body, 'binary');
+	      res.end();
       }
     })
     .on('response', function(response) {
