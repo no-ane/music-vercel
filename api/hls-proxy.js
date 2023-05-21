@@ -4,12 +4,12 @@ export default async function handler(req, res) {
   const url = decodeURIComponent(req.url.slice(19));
   const ret = {};
 
-  request.get(url, (err, res) => {
+  request.get(url, (err, requestResult) => {
       if (err) {
 	      console.log('err', err);
       	res.send(err);
       } else {
-	      res.send(res.body)
+	      res.send(requestResult.body)
       }
     })
     .on('response', function(response) {
