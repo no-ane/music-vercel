@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 	      console.log('err', err);
       	res.send(err);
       } else {
-	      res.send(requestResult.body)
+	      res.send(requestResult)
       }
     })
     .on('response', function(response) {
