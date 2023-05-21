@@ -29,7 +29,7 @@ async function handler(req, res) {
 
 	let { url: queryUrl, ...rest } = req.query;
 
-	queryUrl += `&${req.url.split('url=')[0]}${req.url.split('url=')[1].slice(encodeURI(url).length)}`
+	queryUrl += `&${url2.split('url=')[0]}${url2.split('url=')[1].slice(encodeURI(url).length)}`
 
 	res.send({
 		url: req.url,
