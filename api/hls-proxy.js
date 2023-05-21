@@ -26,7 +26,11 @@ async function handler(req, res) {
 	const encodeFnName = encodeURI(fnName);
 	const url2 = `${url.split('fn=')[0]}fn=${encodeFnName}${url.split('fn=')[1].split('&').slice(1).join('&')}`
 
-	res.send(url2);
+	res.send({
+		url: req.url,
+		url2,
+		query: req.query
+	});
 
   // const ret = {};
 
