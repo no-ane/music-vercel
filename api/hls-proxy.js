@@ -25,6 +25,7 @@ async function handler(req, res) {
 	const fnName = url.split('fn=')[1].split('&')[0];
 	const encodeFnName = encodeURI(fnName);
 	const url2 = `${url.split('fn=')[0]}&fn=${encodeFnName}&${url.split('fn=')[1].split('&').slice(1).join('&')}`
+	const eTag = url.split('etag=')[1].split('&')[0];
 
 
 	let { url: queryUrl, ...rest } = req.query;
@@ -38,6 +39,10 @@ async function handler(req, res) {
         console.log('err', err);
         res.send(err);
       } else {
+      	res.setHeader('Content-Type', 'application/octet-stream');
+      	res.setHeader('Etag', eTag);
+      	res.setHeader('Content-Md5', eTag);
+      	res.setHeader('Accept-Ranges', 'bytes');
         // res.send(requestResult.body);
         res.send(Buffer.from(requestResult.body, 'binary'));
       }
@@ -58,7 +63,6 @@ async function handler(req, res) {
       	ret['content-disposition'] = response.headers['content-disposition'];
       	res.setHeader('Content-Disposition', response.headers['content-disposition']);
       }
-
     })
 }
 
