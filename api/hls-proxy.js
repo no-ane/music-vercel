@@ -24,12 +24,12 @@ async function handler(req, res) {
 
 	const fnName = url.split('fn=')[1].split('&')[0];
 	const encodeFnName = encodeURI(fnName);
-	const url2 = `${url.split('fn=')[0]}fn=${encodeFnName}${url.split('fn=')[1].split('&').slice(1).join('&')}`
+	const url2 = `${url.split('fn=')[0]}&fn=${encodeFnName}&${url.split('fn=')[1].split('&').slice(1).join('&')}`
 
 
 	let { url: queryUrl, ...rest } = req.query;
 
-	queryUrl += `&${url2.split('url=')[0]}${url2.split('url=')[1].slice(encodeURI(url).length)}`
+	queryUrl += `&${url2.split('url=')[0]}&${url2.split('url=')[1].slice(encodeURI(url).length)}`
 
 	res.send({
 		url: req.url,
