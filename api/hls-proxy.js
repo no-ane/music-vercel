@@ -16,7 +16,7 @@ export default async function handler(req, res) {
           'Content-Type': ret['content-type'],
           'Content-Length': ret['content-length']
         });
-        res.end(Buffer.from(requestResult.body, 'binary'));
+        res.send(Buffer.from(requestResult.body, 'binary'));
       }
     })
     .on('response', function(response) {
